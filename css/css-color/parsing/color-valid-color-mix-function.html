@@ -26,6 +26,13 @@
         return computedValue;
     }
 
+    // https://github.com/w3c/csswg-drafts/issues/7302: Specified values shouldn't resolve keyword colors
+    test_valid_value(`color`, `color-mix(in srgb, red, blue)`, `color-mix(in srgb, red, blue)`);
+    test_valid_value(`color`, `color-mix(in hsl, red, blue)`, `color-mix(in hsl, red, blue)`);
+    test_valid_value(`color`, `color-mix(in hsl, red 60%, blue 40%)`, `color-mix(in hsl, red 60%, blue 40%)`);
+    test_valid_value(`color`, `color-mix(in hsl, red 20%, blue 30%)`, `color-mix(in hsl, red 40%, blue 60%)`);
+    test_valid_value(`color`, `color-mix(in lch decreasing hue, red, hsl(120, 100%, 50%))`, `color-mix(in lch decreasing hue, red, rgb(0, 255, 0))`);
+
     test_valid_value(`color`, `color-mix(in hsl, hsl(120deg 10% 20%), hsl(30deg 30% 40%))`, `rgb(84, 92, 61)`);
     test_valid_value(`color`, `color-mix(in hsl, hsl(120deg 10% 20%) 25%, hsl(30deg 30% 40%))`, `rgb(112, 106, 67)`);
     test_valid_value(`color`, `color-mix(in hsl, 25% hsl(120deg 10% 20%), hsl(30deg 30% 40%))`, `rgb(112, 106, 67)`);
